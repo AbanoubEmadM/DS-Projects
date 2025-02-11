@@ -20,6 +20,7 @@ public:
 		_size++;
 		head = new_node;
 	}
+
 	clsNode<T> *Find(T value)
 	{
 		clsNode<T>* current = head;
@@ -34,6 +35,8 @@ public:
 		delete current;
 		return NULL;
 	}
+
+
 	void InsertAfter(clsNode<T>* current, T value)
 	{
 		clsNode<T>* new_node = new clsNode<T>();
@@ -50,6 +53,9 @@ public:
 	void InsertAtEnd(T value)
 	{
 		clsNode<T>* new_node = new clsNode<T>();
+		new_node->value = value;
+		new_node->next = NULL;
+
 		if (head == NULL)
 		{
 			new_node->prev = NULL;
@@ -62,10 +68,8 @@ public:
 			{
 				current = current->next;
 			}
-			new_node->value = value;
-			new_node->next = NULL;
-			new_node->prev = current;
 			current->next = new_node;
+			new_node->prev = current;
 		}
 		_size++;
 
@@ -84,6 +88,7 @@ public:
 		_size--;
 		delete node;
 	}
+
 	void DeleteFirstNode()
 	{
 		clsNode<T>* temp = head;
@@ -95,6 +100,7 @@ public:
 		delete temp;
 		_size--;
 	}
+
 	void DeleteLastNode()
 	{
 		clsNode<T>* temp = head;
@@ -119,6 +125,7 @@ public:
 		_size--;
 
 	}
+
 	void PrintNodesValues()
 	{
 		clsNode<T>* current = head;
@@ -130,9 +137,10 @@ public:
 		delete current;
 		// do not move head
 	}
-	void Size()
+
+	int Size()
 	{
-		cout << _size;
+		return _size;
 	}
 
 	bool IsEmpty()
@@ -151,18 +159,82 @@ public:
 	void Reverse()
 	{
 		clsNode<T>* current = head;
-		while (current->next != NULL)
-		{
-			current = current->next;
-		}
-		clsNode<T>* last = current;
-		while (last != NULL) {
-			cout << last->value << endl;
-			last = last->prev;
-		}
-		delete last;
-		delete current;
+		clsNode<T>* temp = nullptr;
 
+		while (current != nullptr)
+		{
+			temp = current->prev;
+			current->next = current->prev;
+			current->prev = temp;
+			current = current->prev;
+		}
+		if (temp != nullptr)
+		{
+			head = temp->prev; 
+		}
+	}
+
+	clsNode<T>* GetNode(int Index)
+	{
+		int Counter = 0;
+
+		if (Index > _size - 1 || Index < 0)
+			return NULL;
+
+		clsNode<T>* Current = head;
+		while (Current != NULL && (Current->next != NULL)) {
+
+			if (Counter == Index)
+				break;
+
+			Current = Current->next;
+			Counter++;
+
+		}
+
+		return Current;
+	}
+	
+	T GetItem(int Index)
+	{
+		return GetNode(Index) == NULL ? NULL : GetNode(Index)->value;
+	}
+
+	bool UpdateItem(int Index, T value)
+	{
+		clsNode<T>* Node = GetNode(Index);
+		if (Node == NULL)
+		{
+			return false;
+		}
+		else
+		{
+			Node->value = value;
+			return true;
+		}
+	}
+	
+	bool InsertAfter(int Index, T value)
+	{
+		clsNode<T>* new_node = new clsNode<T>();
+		
+		clsNode<T>* current = GetNode(Index);
+		if (current == NULL)
+		{
+			return false;
+		}
+		else
+		{
+			InsertAfter(current, value);
+			return true;
+		}
+	}
+	void Extrans(clsNode<T>* node)
+	{
+		clsNode<T>* current = node;
+		clsNode<T>* prev = current->prev;
+		clsNode<T>* end = (clsNode<T>*)((uintptr_t)(current->next) ^ ( (uintptr_t)current ^ (uintptr_t)current)  );
+		cout << end->value;
 	}
 };	
 

@@ -26,5 +26,11 @@
     <ClInclude Include="clsNode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="clsMyQueue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="clsMyStack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

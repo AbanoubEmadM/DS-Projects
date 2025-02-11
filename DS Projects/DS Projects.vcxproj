@@ -131,6 +131,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="clsDblLinkedList.h" />
+    <ClInclude Include="clsMyQueue.h" />
+    <ClInclude Include="clsMyStack.h" />
     <ClInclude Include="clsNode.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
